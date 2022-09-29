@@ -158,6 +158,16 @@ open class PanModalPresentationController: UIPresentationController {
         gesture.delegate = self
         return gesture
     }()
+    
+    private lazy var swipeDownGestrue: UISwipeGestureRecognizer = {
+        let gesture = UISwipeGestureRecognizer(target: self, action: #selector(swipeDownAction))
+        gesture.direction = .down
+        return gesture
+    }()
+    
+    @objc func swipeDownAction(){
+        presentedViewController.dismiss(animated: true)
+    }
 
     // MARK: - Deinitializers
 
@@ -348,6 +358,8 @@ private extension PanModalPresentationController {
         
         if presentable.canDrag {
             containerView.addGestureRecognizer(panGestureRecognizer)
+        }else{
+            containerView.addGestureRecognizer(swipeDownGestrue)
         }
 //        containerView.addGestureRecognizer(panGestureRecognizer)
 
@@ -362,6 +374,8 @@ private extension PanModalPresentationController {
         setNeedsLayoutUpdate()
         adjustPanContainerBackgroundColor()
     }
+    
+    
 
     /**
      Reduce height of presentedView so that it sits at the bottom of the screen
