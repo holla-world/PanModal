@@ -356,13 +356,14 @@ private extension PanModalPresentationController {
          */
         containerView.addSubview(presentedView)
         
-        if presentable.canDrag {
-            containerView.addGestureRecognizer(panGestureRecognizer)
-        }else{
-            containerView.addGestureRecognizer(swipeDownGestrue)
+        if presentable.noNeedGes == false {
+            if presentable.canDrag {
+                containerView.addGestureRecognizer(panGestureRecognizer)
+            }else{
+                containerView.addGestureRecognizer(swipeDownGestrue)
+            }
         }
-//        containerView.addGestureRecognizer(panGestureRecognizer)
-
+        
         if presentable.showDragIndicator {
             addDragIndicatorView(to: presentedView)
         }
